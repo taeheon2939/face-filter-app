@@ -1,0 +1,102 @@
+body {
+    background-color: #121212;
+    color: white;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+#loader {
+    font-size: 24px;
+    position: absolute;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+}
+
+.camera-container {
+    position: relative;
+    width: 90vw;
+    max-width: 400px;
+    /* 3:4 비율을 유지 */
+    aspect-ratio: 3 / 4;
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: #333;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+#video, #canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 화면을 꽉 채우도록 설정 */
+}
+
+/* 거울 모드처럼 좌우 반전 */
+#video {
+    transform: scaleX(-1);
+}
+
+.controls {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+button, a#save-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+button:hover, a#save-btn:hover {
+    background-color: #0056b3;
+}
+
+#filter-btn.active {
+    background-color: #28a745;
+}
+#filter-btn.active:hover {
+    background-color: #1e7e34;
+}
+
+#result-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#photo {
+    max-width: 90vw;
+    max-height: 40vh;
+    border: 2px solid white;
+    border-radius: 8px;
+}
+
+.result-controls {
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none !important;
+}

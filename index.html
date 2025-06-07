@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>얼굴 변형 필터 앱</title>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+</head>
+<body>
+    <div id="loader">모델 로딩 중...</div>
+
+    <div class="app-container">
+        <div class="camera-container">
+            <video id="video" autoplay muted playsinline></video>
+            <canvas id="canvas"></canvas>
+        </div>
+
+        <div class="controls">
+            <button id="filter-btn">필터 켜기</button>
+            <button id="capture-btn">📸 사진 찍기</button>
+        </div>
+
+        <div id="result-container" class="hidden">
+            <img id="photo" alt="촬영된 사진">
+            <div class="result-controls">
+                <a id="save-btn" href="#">사진 저장</a>
+                <button id="share-btn">공유하기</button>
+            </div>
+        </div>
+    </div>
+
+    <script defer src="script.js"></script>
+</body>
+</html>

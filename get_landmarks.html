@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Landmark Extractor</title>
+    <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        pre { background-color: #f4f4f4; border: 1px solid #ddd; padding: 15px; white-space: pre-wrap; word-wrap: break-word; }
+    </style>
+</head>
+<body>
+    <h1>목표 얼굴 랜드마크 추출기</h1>
+    <p>아래 텍스트 상자에 나타난 데이터를 복사하여 আপনার script.js 파일에 붙여넣으세요.</p>
+    <p>이미지 로드 및 분석 중...</p>
+    <pre id="landmarks-output">데이터를 기다리는 중...</pre>
+
+    <script>
+        async function extractLandmarks() {
+            const outputElement = document.getElementById('landmarks-output');
+            
+            try {
+                // 모델 로드 경로는 기존 프로젝트 구조에 맞게 그대로 둡니다.
+                await faceapi.nets.ssdMobilenetv1.loadFromUri('./models');
+                await faceapi.nets.faceLandmark68Net.loadFromUri('./models');
+                
+                // 목표 이미지 로드 및 분석
+                const targetImage = await faceapi.fetchImage('./images/target_face.jpg');
+                const detections = await faceapi.detectSingleFace(targetImage).withFaceLandmarks();
+                
+                if (detections) {
+                    const landmarks = detections.landmarks.relativePositions;
+                    const landmarksJSON = JSON.stringify(landmarks, null, 2);
+                    
+                    outputElement.textContent = landmarksJSON;
+                    document.querySelector('p:nth-of-type(2)').textContent = "분석 완료! 아래 데이터를 복사하세요.";
+                    
+                    console.log("아래 데이터를 복사하세요:");
+                    console.log(landmarksJSON);
+                    
+                } else {
+                    outputElement.textContent = "오류: 목표 이미지에서 얼굴을 찾을 수 없습니다.";
+                }
+            } catch (error) {
+                outputElement.textContent = `오류 발생: ${error.message}`;
+                console.error(error);
+            }
+        }
+        
+        extractLandmarks();
+    </script>
+</body>
+</html>
